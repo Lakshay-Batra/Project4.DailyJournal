@@ -65,9 +65,11 @@ app.get("/compose", function (req, res) {
 
 app.post("/compose", function (req, res) {
 
-  const inputTitle= req.body.postTitle;
+  var inputTitle= req.body.postTitle;
   const inputContent= req.body.postBody;
-
+  if(_.endsWith(inputTitle," ")) {
+    inputTitle=_.trimEnd(inputTitle);
+  }
   const newBlog = new Blog({
     title: inputTitle,
     content: inputContent
