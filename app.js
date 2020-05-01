@@ -1,5 +1,4 @@
-//jshint esversion:6
-
+require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
@@ -16,7 +15,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-mongoose.connect("mongodb+srv://admin-lakshay:Aayushbatra1@@cluster0-qgflw.mongodb.net/blogsDB", { useFindAndModify: false, useUnifiedTopology: true, useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_CLUSTER_LINK, { useFindAndModify: false, useUnifiedTopology: true, useNewUrlParser: true });
 
 const blogSchema = {
   title: {
