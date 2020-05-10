@@ -134,7 +134,8 @@ app.get("/home", function (req, res) {
           } else {
             res.render("home", {
               startingContent: description.home(),
-              posts: foundUser.blogs
+              posts: foundUser.blogs,
+              name:req.user.firstName
             });
           }
         }
