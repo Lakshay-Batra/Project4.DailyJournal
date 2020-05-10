@@ -27,8 +27,8 @@ mongoose.connect(process.env.MONGODB_CLUSTER_LINK, { useCreateIndex: true, useFi
 const blogSchema = new mongoose.Schema({
   title: String,
   content: String,
-  date:String,
-  time:String
+  date: String,
+  time: String
 });
 const userSchema = new mongoose.Schema({
   firstName: String,
@@ -123,10 +123,12 @@ app.get("/home", function (req, res) {
           if (foundUser.blogs.length == 0) {
             const tempBlog = new Blog({
               title: "Demo Title",
-              content: "Hit + button to write your daily journal."
+              content: "Hit + button to write your daily journal.",
+              date: dateTime.getDate(),
+              time: dateTime.getTime()
             });
             tempBlog.save((err) => {
-              if(!err) {
+              if (!err) {
                 foundUser.blogs.push(tempBlog);
                 foundUser.save((err) => {
                   res.redirect("/home");
@@ -137,7 +139,7 @@ app.get("/home", function (req, res) {
             res.render("home", {
               startingContent: description.home(),
               posts: foundUser.blogs,
-              name:req.user.firstName
+              name: req.user.firstName
             });
           }
         }
