@@ -26,7 +26,9 @@ mongoose.connect(process.env.MONGODB_CLUSTER_LINK, { useCreateIndex: true, useFi
 
 const blogSchema = new mongoose.Schema({
   title: String,
-  content: String
+  content: String,
+  date:String,
+  time:String
 });
 const userSchema = new mongoose.Schema({
   firstName: String,
@@ -141,26 +143,6 @@ app.get("/home", function (req, res) {
         }
       }
     });
-    // Blog.find((err, foundBlogs) => {
-    //   if (!err) {
-    //     if (foundBlogs.length == 0) {
-    //       const tempBlog = new Blog({
-    //         title: "Demo Title",
-    //         content: "demo content"
-    //       });
-    //       tempBlog.save();
-    //       setTimeout(() => {
-    //         res.redirect("/home");
-    //       }, 500);
-
-    //     } else {
-    //       res.render("home", {
-    //         startingContent: description.home(),
-    //         posts: foundBlogs
-    //       });
-    //     }
-    //   }
-    // });
   } else {
     res.redirect("/login");
   }
@@ -188,7 +170,9 @@ app.post("/compose", function (req, res) {
     }
     const newBlog = new Blog({
       title: inputTitle,
-      content: inputContent
+      content: inputContent,
+      date: dateTime.getDate(),
+      time: dateTime.getTime()
     });
     newBlog.save((err) => {
       if (!err) {
